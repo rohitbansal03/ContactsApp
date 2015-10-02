@@ -40,7 +40,7 @@ struct ListPresenter {
     func onInputContact() -> Result<()> {
         return ui.getFirstName().map { firstName in
             return self.ui.getLastName().map { lastName in
-                return self.ui.getPhone().map { phonenumber ->  Result<()> in
+                return self.ui.getPhone().map { phonenumber in
                     if self.isContactInfoValid(firstName, lastName: lastName, phonenumber: phonenumber) {
                         self.ui.showError()
                         return self.onInputContact()

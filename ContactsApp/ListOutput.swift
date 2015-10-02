@@ -14,11 +14,10 @@ struct ListOutput: ListUI {
             contacts.forEach {
                 print($0)
             }
-            print("Total: \(contacts.count)")
+             return Result(value: print("Total: \(contacts.count)"))
         } else {
-            print("No contacts")
+             return Result(value: print("No contacts"))
         }
-        return Result(value: ())
     }
 
     func getFirstName() -> Result<String> {
@@ -37,7 +36,6 @@ struct ListOutput: ListUI {
     }
 
     func showError() -> Result<()> {
-        print("Error !!!!!")
-        return Result(value: ())
+        return Result(value: print("Error !!!!!"))
     }
 }
