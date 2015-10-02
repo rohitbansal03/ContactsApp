@@ -11,7 +11,7 @@ import Foundation
 struct GetContacts {
     let contactRepository: ContactRepositoryProtocol
 
-    func execute() -> [Contact] {
+    func execute() -> Result<[Contact]> {
         return contactRepository.getAll()
     }
 }

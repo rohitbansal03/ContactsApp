@@ -15,7 +15,7 @@ class UseCaseTest: XCTestCase {
         let useCase = GetContacts(contactRepository: contactRepository)
         let contacts = useCase.execute()
 
-        XCTAssertTrue(contacts.count == 0)
+        XCTAssertTrue(contacts.value.count == 0)
     }
 
     func testAddContact() {
@@ -31,7 +31,7 @@ class UseCaseTest: XCTestCase {
         )
 
         let contacts = GetContacts(contactRepository: contactRepository).execute()
-        XCTAssertTrue(contacts.count == 1)
+        XCTAssertTrue(contacts.value.count == 1)
     }
 
     func testContactDetails() {
@@ -43,7 +43,7 @@ class UseCaseTest: XCTestCase {
         )
         AddContact(contactRepository: contactRepository).execute(contact)
 
-        let addedContact = GetContactDetail(contactRepository: contactRepository).execute(0)
+        let addedContact = GetContactDetail(contactRepository: contactRepository).execute(0).value
 
         XCTAssertEqual(addedContact.firstName, contact.firstName)
         XCTAssertEqual(addedContact.lastName, contact.lastName)

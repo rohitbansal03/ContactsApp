@@ -16,7 +16,7 @@ struct MockContact: Contact {
 
 class MockContactRepository: ContactRepositoryProtocol {
     var contacts: [Contact] = []
-    func add(contact: Contact) { contacts.append(contact) }
-    func getAll() -> [Contact] { return contacts }
-    func get(index: Int) -> Contact { return contacts[index] }
+    func add(contact: Contact) -> Contact { contacts.append(contact); return contact }
+    func getAll() -> Result<[Contact]> { return Result(value: contacts) }
+    func get(index: Int) -> Result<Contact> { return Result(value: contacts[index]) }
 }

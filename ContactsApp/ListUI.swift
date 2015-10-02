@@ -9,9 +9,9 @@
 import Foundation
 
 protocol ListUI {
-    func showContacts(contacts: [Contact])
-    func getFirstName() -> String
-    func getLastName() -> String
-    func getPhone() -> String
-    func showError()
+    func showContacts(contacts: [Contact]) -> Result<()>
+    func getFirstName() -> Result<String>
+    func getLastName() -> Result<String>
+    func getPhone() -> Result<String>
+    func showError() -> Result<()>
 }

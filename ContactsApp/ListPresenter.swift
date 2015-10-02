@@ -13,13 +13,14 @@ struct ListPresenter {
     let getContactUseCase: GetContacts
     let addContactUseCase: AddContact
 
-    func onInitialize() {
-        loadContacts()
+    func onInitialize() -> Result<()> {
+        return loadContacts()
     }
 
-    private func loadContacts() {
-        let contacts = getContactUseCase.execute()
-        ui.showContacts(contacts)
+    private func loadContacts()  -> Result<()> {
+        return getContactUseCase.execute().map { contacts in
+            return self.ui.showContacts(contacts)
+        }
     }
 
     private func isValidName(input: String) -> Bool {
@@ -36,23 +37,26 @@ struct ListPresenter {
             || !isValidPhonenumber(phonenumber)
     }
 
-    func onInputContact() {
-        let firstName = ui.getFirstName()
-        let lastName = ui.getLastName()
-        let phone = ui.getPhone()
-        if isContactInfoValid(firstName, lastName: lastName, phonenumber: phone) {
-            ui.showError()
-            return onInputContact()
-        }
-        addContactUseCase.execute(
-            NewContact(
-                firstName: firstName,
-                lastName: lastName,
-                phonenumber: phone
-            )
-        )
+    func onInputContact() -> Result<()> {
+        return ui.getFirstName().map { firstName in
+            return self.ui.getLastName().map { lastName in
+                return self.ui.getPhone().map { phonenumber ->  Result<()> in
+                    if self.isContactInfoValid(firstName, lastName: lastName, phonenumber: phonenumber) {
+                        self.ui.showError()
+                        return self.onInputContact()
+                    }
+                    self.addContactUseCase.execute(
+                        NewContact(
+                            firstName: firstName,
+                            lastName: lastName,
+                            phonenumber: phonenumber
+                        )
+                    )
 
-        loadContacts()
+                    return self.loadContacts()
+                }
+            }
+        }
     }
 }
 
