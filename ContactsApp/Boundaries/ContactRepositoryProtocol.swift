@@ -9,7 +9,9 @@
 import Foundation
 
 protocol ContactRepositoryProtocol {
+    
     func getAll() -> Result<[Contact]>
     func add(contact: Contact) -> Contact
     func get(index: Int) -> Result<Contact>
+
 }

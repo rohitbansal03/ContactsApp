@@ -9,9 +9,11 @@
 import Foundation
 
 struct AddContact {
+    
     let contactRepository: ContactRepositoryProtocol
-
+    
     func execute(contact: Contact) -> Contact {
         return contactRepository.add(contact)
     }
+    
 }

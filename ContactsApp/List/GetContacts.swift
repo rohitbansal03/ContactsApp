@@ -9,9 +9,11 @@
 import Foundation
 
 struct GetContacts {
+    
     let contactRepository: ContactRepositoryProtocol
-
+    
     func execute() -> Result<[Contact]> {
         return contactRepository.getAll()
     }
+    
 }
